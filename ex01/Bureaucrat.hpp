@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <string>
 
+#include "Form.hpp"
+
 class Bureaucrat
 {
 private:
@@ -41,6 +43,7 @@ public:
    */
   int gradeUp();
   int gradeDown();
+  void signForm(Form &form);
 
   /*
    * exception

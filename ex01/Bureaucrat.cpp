@@ -1,5 +1,7 @@
 #include "Bureaucrat.hpp"
 
+#include <iostream>
+
 /*
  * constructor destructor
  */
@@ -46,11 +48,13 @@ int Bureaucrat::gradeUp()
   _setGrade(_grade - 1);
   return _grade;
 }
+
 int Bureaucrat::gradeDown()
 {
   _setGrade(_grade + 1);
   return _grade;
 }
+
 void Bureaucrat::_checkGrade(int grade) const
 {
   if (grade < HIGHEST_GRADE) {
@@ -58,6 +62,17 @@ void Bureaucrat::_checkGrade(int grade) const
   }
   if (grade > LOWEST_GRADE) {
     throw Bureaucrat::GradeTooLowException();
+  }
+}
+
+void Bureaucrat::signForm(Form &form)
+{
+  try {
+    form.beSigned(*this);
+    std::cout << _name << " signed " << form.getName() << std::endl;
+  } catch (const std::exception &e) {
+    std::cout << _name << " couldn't sign " << form.getName() << " because "
+              << e.what() << std::endl;
   }
 }
 
@@ -75,6 +90,9 @@ Bureaucrat::GradeTooLowException::GradeTooLowException(const std::string &msg) :
 {
 }
 
+/*
+ * overload
+ */
 std::ostream &operator<<(std::ostream &os, Bureaucrat const &b)
 {
   os << b.getName() << ", bureaucrat grade " << b.getGrade() << ".";
