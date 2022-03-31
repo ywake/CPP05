@@ -48,8 +48,9 @@ int main(void)
   log("Copy a", copy);
 
   // assignnation
-  Bureaucrat assign = b;
-  log("Assign b", assign);
+  Bureaucrat assign;
+  assign = a;
+  log("Assign a", assign);
 
   // grade up normal
   b.gradeUp();
