@@ -30,7 +30,7 @@ Bureaucrat &Bureaucrat::operator=(Bureaucrat const &other)
 /*
  * getter setter
  */
-const std::string Bureaucrat::getName() const { return _name; }
+const std::string &Bureaucrat::getName() const { return _name; }
 int Bureaucrat::getGrade() const { return _grade; }
 void Bureaucrat::_setGrade(int newGrade)
 {
