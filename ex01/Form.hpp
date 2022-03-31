@@ -6,11 +6,13 @@
 
 #include "Bureaucrat.hpp"
 
+class Bureaucrat;
+
 class Form
 {
 private:
   const std::string _name;
-  bool _isSigned = false;
+  bool _isSigned;
   const int _requiredGradeToSign;
   const int _requiredGradeToExecute;
 
@@ -48,13 +50,13 @@ public:
   class GradeTooHighException : public std::out_of_range
   {
   public:
-    GradeTooHighException(const std::string &msg = "The grade is too high.");
+    GradeTooHighException(const std::string &msg = "grade is too high.");
   };
 
   class GradeTooLowException : public std::out_of_range
   {
   public:
-    GradeTooLowException(const std::string &msg = "The grade is too low.");
+    GradeTooLowException(const std::string &msg = "grade is too low.");
   };
 };
 

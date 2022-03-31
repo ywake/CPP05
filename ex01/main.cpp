@@ -17,61 +17,42 @@ void log(std::string const &title, Bureaucrat const &b)
             << std::endl;
 }
 
+void log(std::string const &title, Form const &f)
+{
+  std::cout << std::left << std::setw(WIDTH) << "[" + title + "]" << f
+            << std::endl;
+}
+
 int main(void)
 {
-  // constructor normal
-  Bureaucrat a("aaa", 1);
-  log("Normal", a);
+  Bureaucrat high("high", 100);
+  log("Spawn", high);
 
-  // constructor normal
-  Bureaucrat b("bbb", 150);
-  log("Normal", b);
+  Bureaucrat low("low", 101);
+  log("Spawn", low);
 
-  // constructor too high
-  try {
-    Bureaucrat c("ccc", 0);
-    log("TooHigh", c);
-  } catch (const std::exception &e) {
-    log("TooHigh", e.what());
+  Form a("Form-A", 100, 10);
+  log("Create", a);
+
+  {
+    Form copy(a);
+    log("Copy", copy);
+    Form assign;
+    assign = a;
+    log("Assign a", assign);
   }
+  std::cout << std::endl;
+  low.signForm(a);
+  high.signForm(a);
+  std::cout << std::endl;
 
-  // constructor too low
-  try {
-    Bureaucrat c("ccc", 151);
-    log("TooLow", c);
-  } catch (const std::exception &e) {
-    log("TooLow", e.what());
+  log("Signed", a);
+
+  {
+    Form copy(a);
+    log("Copy", copy);
+    Form assign;
+    assign = a;
+    log("Assign a", assign);
   }
-
-  // copy constructor
-  Bureaucrat copy(a);
-  log("Copy a", copy);
-
-  // assignnation
-  Bureaucrat assign = b;
-  log("Assign b", assign);
-
-  // grade up normal
-  b.gradeUp();
-  log("b.gradeUp", b);
-
-  // grade down normal
-  b.gradeDown();
-  log("b.gradeDown", b);
-
-  // grade up too high
-  try {
-    a.gradeUp();
-  } catch (const std::exception &e) {
-    log("a.gradeUp", e.what());
-  }
-  log("a", a);
-
-  // grade up too low
-  try {
-    b.gradeDown();
-  } catch (const std::exception &e) {
-    log("b.gradeDown", e.what());
-  }
-  log("b", b);
 }

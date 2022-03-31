@@ -4,14 +4,15 @@
  * constructor destructor
  */
 Form::Form() :
-    _name("NoName"), _requiredGradeToSign(1), _requiredGradeToExecute(1)
+    _name("NoName"), _isSigned(false), _requiredGradeToSign(1),
+    _requiredGradeToExecute(1)
 {
 }
 
 Form::Form(std::string const &name, int requiredGradeToSign,
            int requiredGradeToExecute) :
     _name(name),
-    _requiredGradeToSign(requiredGradeToSign),
+    _isSigned(false), _requiredGradeToSign(requiredGradeToSign),
     _requiredGradeToExecute(requiredGradeToExecute)
 {
 }
@@ -73,8 +74,9 @@ Form::GradeTooLowException::GradeTooLowException(const std::string &msg) :
  */
 std::ostream &operator<<(std::ostream &os, Form const &f)
 {
-  os << f.getName() << "is " << (f.isSigned() ? "" : "not ") << "sined.\n"
-     << "Require grade to Sign: " << f.getRequiredGradeToSign() << "\n"
-     << "Require grade to Execute: " << f.getRequiredGradeToExecute();
+  os << f.getName() << " is " << (f.isSigned() ? "" : "not ") << "sined. "
+     << "Requires a minimum of " << f.getRequiredGradeToSign()
+     << " grades to sign and " << f.getRequiredGradeToExecute()
+     << " to execute.";
   return os;
 }
