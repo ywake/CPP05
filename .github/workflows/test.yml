@@ -34,6 +34,8 @@ jobs:
         run: make test -C ex00
       - name: Testing ex01
         run: make test -C ex01
+      - name: Testing ex02
+        run: make test -C ex02
 
       # # Runs a set of commands using the runners shell
       # - name: Run a multi-line script
