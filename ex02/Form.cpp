@@ -56,6 +56,14 @@ void Form::beSigned(Bureaucrat const &b)
   _isSigned = true;
 }
 
+void Form::execute(Bureaucrat const &executor) const
+{
+  if (executor.getGrade() > _requiredGradeToExecute) {
+    throw Form::GradeTooLowException();
+  }
+  _execute();
+}
+
 /*
  * exception
  */

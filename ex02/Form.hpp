@@ -15,7 +15,7 @@ private:
   bool _isSigned;
   const int _requiredGradeToSign;
   const int _requiredGradeToExecute;
-  virtual void _execute() = 0;
+  virtual void _execute() const = 0;
 
 public:
   /*
@@ -25,7 +25,7 @@ public:
   Form(std::string const &name, int requiredGradeToSign,
        int requiredGradeToExecute);
   Form(Form const &copy);
-  ~Form();
+  virtual ~Form();
 
   /*
    * operator

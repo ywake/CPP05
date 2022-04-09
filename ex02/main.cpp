@@ -1,9 +1,10 @@
 #include "Bureaucrat.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 #include <iomanip>
 #include <iostream>
 
-#define WIDTH (15)
+#define WIDTH (20)
 
 void log(std::string const &title, std::string const &what)
 {
@@ -23,36 +24,55 @@ void log(std::string const &title, Form const &f)
             << std::endl;
 }
 
-int main(void)
+void sign(Form &form, Bureaucrat const &signner)
 {
-  Bureaucrat high("high", 100);
-  log("Spawn", high);
+  std::cout << std::setw(WIDTH) << "[Sign by " + signner.getName() + "]";
+  try {
+    form.beSigned(signner);
+    std::cout << "done." << std::endl;
+  } catch (const std::exception &e) {
+    std::cerr << e.what() << std::endl;
+  }
+}
 
-  Bureaucrat low("low", 101);
+void exec(Form const &form, Bureaucrat const &executor)
+{
+  std::cout << std::setw(WIDTH) << "[Exec by " + executor.getName() + "]";
+  try {
+    form.execute(executor);
+    std::cout << "done." << std::endl;
+  } catch (const std::exception &e) {
+    std::cerr << e.what() << std::endl;
+  }
+}
+
+void testForm(Form &form)
+{
+  Bureaucrat high("Mrs.High", 100);
+  log("Spawn", high);
+  Bureaucrat low("Mr.Low", 150);
   log("Spawn", low);
 
-  Form a("Form-A", 100, 10);
-  log("Create", a);
+  log("Create", form);
+  // Check sign
+  sign(form, low);
+  sign(form, high);
+  // Check execute
+  exec(form, low);
+  exec(form, high);
+}
 
+int main(void)
+{
+  std::cout << "\n--- Shrubbery ---" << std::endl;
+  ShrubberyCreationForm shrubbery("tree");
+  testForm(shrubbery);
+  // Check shruberry copy, assign
   {
-    Form copy(a);
+    ShrubberyCreationForm copy(shrubbery);
     log("Copy", copy);
-    Form assign;
-    assign = a;
-    log("Assign a", assign);
-  }
-  std::cout << std::endl;
-  low.signForm(a);
-  high.signForm(a);
-  std::cout << std::endl;
-
-  log("Signed", a);
-
-  {
-    Form copy(a);
-    log("Copy", copy);
-    Form assign;
-    assign = a;
-    log("Assign a", assign);
+    ShrubberyCreationForm assign;
+    assign = copy;
+    log("Assign", assign);
   }
 }
