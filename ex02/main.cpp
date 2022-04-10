@@ -1,35 +1,29 @@
 #include "Bureaucrat.hpp"
+#include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
 #include <iomanip>
 #include <iostream>
 
 #define WIDTH (20)
+#define THIN "\e[2m"
+#define END "\e[0m"
 
-void log(std::string const &title, std::string const &what)
-{
-  std::cout << std::left << std::setw(WIDTH) << "[" + title + "]" << what
-            << std::endl;
-}
+template <class T>
 
-void log(std::string const &title, Bureaucrat const &b)
+void log(std::string const &title, T const &obj)
 {
-  std::cout << std::left << std::setw(WIDTH) << "[" + title + "]" << b
-            << std::endl;
-}
-
-void log(std::string const &title, Form const &f)
-{
-  std::cout << std::left << std::setw(WIDTH) << "[" + title + "]" << f
-            << std::endl;
+  std::cout << std::left << THIN << std::setw(WIDTH) << "[" + title + "]" << obj
+            << END << std::endl;
 }
 
 void sign(Form &form, Bureaucrat const &signner)
 {
-  std::cout << std::setw(WIDTH) << "[Sign by " + signner.getName() + "]";
+  std::cout << THIN << std::setw(WIDTH) << "[Sign by " + signner.getName() + "]"
+            << END;
   try {
     form.beSigned(signner);
-    std::cout << "done." << std::endl;
+    std::cout << THIN "done." END << std::endl;
   } catch (const std::exception &e) {
     std::cerr << e.what() << std::endl;
   }
@@ -37,20 +31,16 @@ void sign(Form &form, Bureaucrat const &signner)
 
 void exec(Form const &form, Bureaucrat const &executor)
 {
-  std::cout << std::setw(WIDTH) << "[Exec by " + executor.getName() + "]";
-  try {
-    form.execute(executor);
-    std::cout << "done." << std::endl;
-  } catch (const std::exception &e) {
-    std::cerr << e.what() << std::endl;
-  }
+  std::cout << THIN << std::setw(WIDTH)
+            << "[Exec by " + executor.getName() + "]" << END;
+  executor.executeForm(form);
 }
 
-void testForm(Form &form)
+void testForm(Form &form, int highGrade, int lowGrade)
 {
-  Bureaucrat high("Mrs.High", 100);
+  Bureaucrat high("Mrs.High", highGrade);
   log("Spawn", high);
-  Bureaucrat low("Mr.Low", 150);
+  Bureaucrat low("Mr.Low", lowGrade);
   log("Spawn", low);
 
   log("Create", form);
@@ -66,7 +56,7 @@ int main(void)
 {
   std::cout << "\n--- Shrubbery ---" << std::endl;
   ShrubberyCreationForm shrubbery("tree");
-  testForm(shrubbery);
+  testForm(shrubbery, 100, 150);
   // Check shruberry copy, assign
   {
     ShrubberyCreationForm copy(shrubbery);
@@ -74,5 +64,22 @@ int main(void)
     ShrubberyCreationForm assign;
     assign = copy;
     log("Assign", assign);
+    std::cout << THIN "target: " << shrubbery.getTarget() + ", "
+              << copy.getTarget() + ", " << assign.getTarget() << END
+              << std::endl;
+  }
+
+  std::cout << "\n--- Robotomy ---" << std::endl;
+  RobotomyRequestForm robotomy("pawapuro-kun");
+  testForm(robotomy, 45, 150);
+  {
+    RobotomyRequestForm copy(robotomy);
+    log("Copy", copy);
+    RobotomyRequestForm assign;
+    assign = copy;
+    log("Assign", assign);
+    std::cout << THIN "target: " << robotomy.getTarget() + ", "
+              << copy.getTarget() + ", " << assign.getTarget() << END
+              << std::endl;
   }
 }

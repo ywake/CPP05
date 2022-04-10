@@ -1,7 +1,9 @@
 #include "ShrubberyCreationForm.hpp"
 
+#include <cstring>
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
 
 const std::string ShrubberyCreationForm::FORM_NAME = "Shruberry Creation";
 const std::string ShrubberyCreationForm::ASCII_TREE = "    _\\/_\n"
@@ -65,8 +67,8 @@ void ShrubberyCreationForm::_execute() const
 {
   std::ofstream ofs(_target + "_shrubbery");
   if (!ofs) {
-    std::perror("Shrubbery Creation Form");
-    return;
+    // std::perror("Shrubbery Creation Form");
+    throw std::invalid_argument(std::strerror(errno));
   }
   ofs << ASCII_TREE << std::endl;
 }

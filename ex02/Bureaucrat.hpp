@@ -46,7 +46,7 @@ public:
   int gradeUp();
   int gradeDown();
   void signForm(Form &form);
-  void executeForm(Form const &form);
+  void executeForm(Form const &form) const;
 
   /*
    * exception
