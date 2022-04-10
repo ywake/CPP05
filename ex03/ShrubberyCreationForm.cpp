@@ -65,7 +65,7 @@ std::string const &ShrubberyCreationForm::getTarget() const { return _target; }
  */
 void ShrubberyCreationForm::_execute() const
 {
-  std::ofstream ofs(_target + "_shrubbery");
+  std::ofstream ofs((_target + "_shrubbery").c_str());
   if (!ofs) {
     // std::perror("Shrubbery Creation Form");
     throw std::invalid_argument(std::strerror(errno));
