@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
@@ -79,6 +80,20 @@ int main(void)
     assign = copy;
     log("Assign", assign);
     std::cout << THIN "target: " << robotomy.getTarget() + ", "
+              << copy.getTarget() + ", " << assign.getTarget() << END
+              << std::endl;
+  }
+
+  std::cout << "\n--- Presidential ---" << std::endl;
+  PresidentialPardonForm presidential("Snowden");
+  testForm(presidential, 1, 150);
+  {
+    PresidentialPardonForm copy(presidential);
+    log("Copy", copy);
+    PresidentialPardonForm assign;
+    assign = copy;
+    log("Assign", assign);
+    std::cout << THIN "target: " << presidential.getTarget() + ", "
               << copy.getTarget() + ", " << assign.getTarget() << END
               << std::endl;
   }
