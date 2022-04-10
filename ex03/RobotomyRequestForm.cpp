@@ -3,7 +3,7 @@
 #include <ctime>
 #include <iostream>
 
-const std::string RobotomyRequestForm::FORM_NAME = "Robotomy Request";
+const std::string RobotomyRequestForm::FORM_NAME = "robotomy request";
 
 /*
  * Constructor/Destructor

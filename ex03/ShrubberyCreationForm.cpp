@@ -5,7 +5,7 @@
 #include <iostream>
 #include <stdexcept>
 
-const std::string ShrubberyCreationForm::FORM_NAME = "Shruberry Creation";
+const std::string ShrubberyCreationForm::FORM_NAME = "shruberry creation";
 const std::string ShrubberyCreationForm::ASCII_TREE = "    _\\/_\n"
                                                       "     /\\\n"
                                                       "     /\\\n"

@@ -10,7 +10,7 @@ uniq = $(if $1,$(firstword $1) $(call uniq,$(filter-out $(firstword $1),$1)))
 
 # TODO: fill in here
 NAME	:= a.out
-SRCS	:= main.cpp Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+SRCS	:= main.cpp Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp Intern.cpp
 TEST_CPP:=
 
 CXX		:= c++
@@ -86,7 +86,7 @@ leak: $(shell uname)_leak
 # Test rules #
 ##############
 
-test: all
+test: leak
 	./$(NAME)
 
 ##########

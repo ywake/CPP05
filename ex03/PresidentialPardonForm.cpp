@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-const std::string PresidentialPardonForm::FORM_NAME = "Presidential Pardon";
+const std::string PresidentialPardonForm::FORM_NAME = "presidential pardon";
 
 /*
  * Constructor/Destructor
